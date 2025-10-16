@@ -18,7 +18,6 @@ contract FundMe {
     uint256 public constant MINIMUM_USD = 5 * 10 ** 18;
     AggregatorV3Interface private sPricefeed;
 
-
     constructor(address pricefeed) {
         iOwner = msg.sender;
         sPricefeed = AggregatorV3Interface(pricefeed);
@@ -32,7 +31,6 @@ contract FundMe {
     }
 
     function getVersion() public view returns (uint256) {
-        
         return sPricefeed.version();
     }
 
@@ -54,7 +52,7 @@ contract FundMe {
         sFunders = new address[](0);
 
         // Transfer the remaining balance to the owner
-        (bool success, ) = payable(msg.sender).call{value: address(this).balance}("");
+        (bool success,) = payable(msg.sender).call{value: address(this).balance}("");
         require(success, "Call failed");
     }
 
@@ -95,7 +93,7 @@ contract FundMe {
         fund();
     }
 
-    function getAddressToAmountFunded( address fundingAddress) external view returns (uint256){
+    function getAddressToAmountFunded(address fundingAddress) external view returns (uint256) {
         return sAddressToAmountFunded[fundingAddress];
     }
 
